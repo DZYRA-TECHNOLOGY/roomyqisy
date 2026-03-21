@@ -1,18 +1,17 @@
 import { Box } from "lucide-react";
-import React from "react";
 import Button from "./ui/Button";
-import {useOutletContext} from "react-router";
+import { useOutletContext } from "react-router";
 
 const Navbar = () => {
-  const {isSignedIn, userName, signIn, signOut} = useOutletContext<AuthContext>()
-  const handleAuthClick = async () => {
-    if(isSignedIn) {
+  const { isSignedIn, userName, signIn, signOut } =
+    useOutletContext<AuthContext>();
+  const handleClickAuth = async () => {
+    if (isSignedIn) {
       try {
         await signOut();
       } catch (e) {
         console.error(`Puter sign out failed: ${e}`);
       }
-
       return;
     }
 
@@ -22,17 +21,17 @@ const Navbar = () => {
       console.error(`Puter sign in failed: ${e}`);
     }
   };
+
   return (
     <header className="navbar">
       <nav className="inner">
         <div className="left">
           <div className="brand">
             <Box className="logo" />
-            <span className="name">RoomIqys2</span>
+            <span className="name">Roomiqys</span>
           </div>
-
           <ul className="links">
-            <a href="#">Prouct</a>
+            <a href="#">Product</a>
             <a href="#">Pricing</a>
             <a href="#">Community</a>
             <a href="#">Enterprise</a>
@@ -41,18 +40,15 @@ const Navbar = () => {
         <div className="actions">
           {isSignedIn ? (
             <>
-              <span className="greeting">
-                {userName ? `Hi, ${userName}` : "Signed In"}
-              </span>
-
-              <Button size="sm" onClick={handleAuthClick}>
+              <span>{userName ? `Hi, ${userName}` : "Sigend In"}</span>
+              <Button size="sm" onClick={handleClickAuth} className="btn">
                 Log Out
               </Button>
             </>
           ) : (
             <>
-              <Button size="sm" onClick={handleAuthClick} variant="ghost">
-                Sign In
+              <Button onClick={handleClickAuth} size="sm" variant="ghost">
+                Log In
               </Button>
 
               <a href="#upload" className="cta">
@@ -65,5 +61,4 @@ const Navbar = () => {
     </header>
   );
 };
-
 export default Navbar;
