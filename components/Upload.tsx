@@ -3,9 +3,9 @@ import { useOutletContext } from "react-router";
 import { CheckCircle2, ImageIcon, UploadIcon } from "lucide-react";
 import {
   PROGRESS_INCREMENT,
-  PROGRESS_INTERVAL_MS,
   REDIRECT_DELAY_MS,
-} from "lib/constants";
+  PROGRESS_INTERVAL_MS,
+} from "../lib/constants";
 
 interface UploadProps {
   onComplete?: (base64Data: string) => void;
@@ -41,10 +41,6 @@ const Upload = ({ onComplete }: UploadProps) => {
       setProgress(0);
 
       const reader = new FileReader();
-      reader.onerror = () => {
-        setFile(null);
-        setProgress(0);
-      }
       reader.onerror = () => {
         setFile(null);
         setProgress(0);
@@ -89,14 +85,13 @@ const Upload = ({ onComplete }: UploadProps) => {
     e.preventDefault();
     setIsDragging(false);
 
-      if (!isSignedIn) return;
-    const droppedFile = e.dataTransfer.files[0];
-    const allowedTypes = ['Image.jpeg', 'image/png']
-    if (droppedFile && allowedTypes.includes(droppedFile.type)) {
-      processFile(droppedFile)
-    }
+    if (!isSignedIn) return;
 
-   
+    const droppedFile = e.dataTransfer.files[0];
+    const allowedTypes = ["image/jpeg", "image/png"];
+    if (droppedFile && allowedTypes.includes(droppedFile.type)) {
+      processFile(droppedFile);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,8 +110,7 @@ const Upload = ({ onComplete }: UploadProps) => {
           className={`dropzone ${isDragging ? "is-dragging" : ""}`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-        >
+          onDrop={handleDrop}>
           <input
             type="file"
             className="drop-input"
