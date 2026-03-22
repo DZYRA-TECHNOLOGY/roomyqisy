@@ -74,6 +74,6 @@ export const createProject = async ({
     return payload;
   } catch (e) {
     console.log('Failed to save project', e)
-    return null
+    return
   }
 };

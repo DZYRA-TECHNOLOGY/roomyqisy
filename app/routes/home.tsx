@@ -41,7 +41,8 @@ export default function Home() {
     navigate(`/visualizer/${newId}`,{
       state: {
         initialImage: saved.sourceImage,
-        initialRendered: saved.renderedImage || null,
+        // initialRendered: saved.renderedImage || null,
+        initialRender: saved.renderedImage || null,
         name
       }
     });
